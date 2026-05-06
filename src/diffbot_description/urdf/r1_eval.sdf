@@ -1,0 +1,404 @@
+<sdf version='1.7'>
+  <model name='fr_robot_sim_r1'>
+    <link name='base_footprint'>
+      <inertial>
+        <pose>0.07194 0 0.502585 0 -0 0</pose>
+        <mass>321.7</mass>
+        <inertia>
+          <ixx>20.8245</ixx>
+          <ixy>0</ixy>
+          <ixz>-7.04992</ixz>
+          <iyy>75.4832</iyy>
+          <iyz>0</iyz>
+          <izz>67.8275</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_footprint_fixed_joint_lump__bonnet_collision'>
+        <pose>0.385 0 0.5405 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.77 0.38 0.731</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='base_footprint_fixed_joint_lump__carrier_collision_1'>
+        <pose>-0.3915 0 0.4155 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.783 0.38 0.481</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='base_footprint_fixed_joint_lump__pole_collision_2'>
+        <pose>0 0 0.9785 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.224 0.645</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='base_footprint_fixed_joint_lump__stereo_cam_collision_3'>
+        <pose>0.029 0 1.314 0 0.5236 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.17 0.035</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='base_footprint_fixed_joint_lump__bonnet_visual'>
+        <pose>0.385 0 0.5405 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.77 0.38 0.731</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_footprint_fixed_joint_lump__carrier_visual_1'>
+        <pose>-0.3915 0 0.4155 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.783 0.38 0.481</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_footprint_fixed_joint_lump__pole_visual_2'>
+        <pose>0 0 0.9785 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.224 0.645</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_footprint_fixed_joint_lump__stereo_cam_visual_3'>
+        <pose>0.029 0 1.314 0 0.5236 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.17 0.035</size>
+          </box>
+        </geometry>
+      </visual>
+
+<!-- ================================================= -->
+<!-- RGB CAMERA -->
+<!-- ================================================= -->
+<sensor name="rgb_camera" type="camera">
+
+  <pose>0.029 0 1.314 0 0.5236 0</pose>
+
+  <always_on>true</always_on>
+  <update_rate>30</update_rate>
+  <visualize>true</visualize>
+
+  <topic>/camera</topic>
+
+  <camera_info_topic>/camera_info</camera_info_topic>
+
+  <camera>
+
+    <horizontal_fov>1.5707</horizontal_fov>
+
+    <image>
+      <width>640</width>
+      <height>480</height>
+      <format>R8G8B8</format>
+    </image>
+
+    <clip>
+      <near>0.05</near>
+      <far>20.0</far>
+    </clip>
+
+  </camera>
+
+</sensor>
+
+
+<!-- ================================================= -->
+<!-- DEPTH CAMERA -->
+<!-- ================================================= -->
+<sensor name="depth_camera" type="depth_camera">
+
+  <always_on>true</always_on>
+
+  <update_rate>30</update_rate>
+
+  <visualize>true</visualize>
+
+  <topic>/depth_camera</topic>
+
+  <camera>
+
+    <horizontal_fov>1.5707</horizontal_fov>
+
+    <image>
+      <width>640</width>
+      <height>480</height>
+      <format>R_FLOAT32</format>
+    </image>
+
+    <clip>
+      <near>0.1</near>
+      <far>20.0</far>
+    </clip>
+
+  </camera>
+
+</sensor>
+
+
+    </link>
+    <joint name='bl_whl_j' type='revolute'>
+      <pose relative_to='base_footprint'>-0.32489 0.32852 0.24872 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>bl_whl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bl_whl'>
+      <pose relative_to='bl_whl_j'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.064989 0 0 -0 0</pose>
+        <mass>7.06811</mass>
+        <inertia>
+          <ixx>0.15338</ixx>
+          <ixy>3.16018e-13</ixy>
+          <ixz>6.13748e-07</ixz>
+          <iyy>0.27779</iyy>
+          <iyz>9.01915e-15</iyz>
+          <izz>0.153378</izz>
+        </inertia>
+      </inertial>
+      <collision name='bl_whl_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/bl_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bl_whl_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/bl_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='br_whl_j' type='revolute'>
+      <pose relative_to='base_footprint'>-0.32489 -0.32873 0.24872 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>br_whl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='br_whl'>
+      <pose relative_to='br_whl_j'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 0.064989 -0 0 -0 0</pose>
+        <mass>7.06811</mass>
+        <inertia>
+          <ixx>0.153379</ixx>
+          <ixy>3.29634e-14</ixy>
+          <ixz>7.67693e-07</ixz>
+          <iyy>0.27779</iyy>
+          <iyz>-2.50307e-14</iyz>
+          <izz>0.153378</izz>
+        </inertia>
+      </inertial>
+      <collision name='br_whl_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/br_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='br_whl_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+           <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/br_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fl_whl_j' type='revolute'>
+      <pose relative_to='base_footprint'>0.32511 0.32852 0.24872 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>fl_whl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='fl_whl'>
+      <pose relative_to='fl_whl_j'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.064989 -0 0 -0 0</pose>
+        <mass>7.06811</mass>
+        <inertia>
+          <ixx>0.153378</ixx>
+          <ixy>3.48878e-13</ixy>
+          <ixz>-7.25942e-07</ixz>
+          <iyy>0.27779</iyy>
+          <iyz>1.67204e-13</iyz>
+          <izz>0.153379</izz>
+        </inertia>
+      </inertial>
+      <collision name='fl_whl_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/fl_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fl_whl_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/fl_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr_whl_j' type='revolute'>
+      <pose relative_to='base_footprint'>0.32511 -0.32873 0.24872 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>fr_whl</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='fr_whl'>
+      <pose relative_to='fr_whl_j'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0.064989 -0 0 -0 0</pose>
+        <mass>7.06811</mass>
+        <inertia>
+          <ixx>0.153378</ixx>
+          <ixy>3.27659e-14</ixy>
+          <ixz>-8.9593e-08</ixz>
+          <iyy>0.27779</iyy>
+          <iyz>-3.70758e-14</iyz>
+          <izz>0.15338</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr_whl_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/fr_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr_whl_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/suprabha/diffbot_ws/src/diffbot_description/meshes/visual/fr_whl.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+     <plugin filename="libignition-gazebo-diff-drive-system.so"
+        name="ignition::gazebo::systems::DiffDrive">
+
+      <update_rate>50</update_rate>
+
+      <left_joint>fl_whl_j</left_joint>
+      <left_joint>bl_whl_j</left_joint>
+
+      <right_joint>fr_whl_j</right_joint>
+      <right_joint>br_whl_j</right_joint>
+
+      <wheel_separation>0.65725</wheel_separation>
+
+      <wheel_radius>0.065</wheel_radius>
+
+      <max_wheel_torque>15</max_wheel_torque>
+
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+      <publish_odom>true</publish_odom>
+
+      <publish_odom_tf>true</publish_odom_tf>
+
+      <publish_wheel_tf>true</publish_wheel_tf>
+
+      <odometry_frame>odom</odometry_frame>
+
+      <odom_publish_frequency>30</odom_publish_frequency>
+
+      <robot_base_frame>base_footprint</robot_base_frame>
+
+      <topic>cmd_vel</topic>
+
+      <odom_topic>odom</odom_topic>
+
+</plugin>
+
+
+<plugin filename="libignition-gazebo-joint-state-publisher-system.so"
+        name="ignition::gazebo::systems::JointStatePublisher"/>
+
+
+<plugin filename="libignition-gazebo-pose-publisher-system.so"
+        name="ignition::gazebo::systems::PosePublisher">
+
+      <publish_link_pose>false</publish_link_pose>
+
+      <publish_sensor_pose>false</publish_sensor_pose>
+
+      <publish_model_pose>false</publish_model_pose>
+
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+
+</plugin>
+
+  </model>
+
+</sdf>
+ 

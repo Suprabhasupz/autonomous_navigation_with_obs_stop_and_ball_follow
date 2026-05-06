@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  fr_robot_sim_r1 — Evaluation URDF (r1_eval.urdf)
+
+  Geometry summary (all measurements from ground / base_footprint origin):
+  ┌──────────────┬───────────────────────────────────────────────────────────────┐
+  │ bonnet       │ tall front hood;  0.770(x) × 0.380(y) × 0.731(z) m          │
+  │              │ bottom at z=0.175 m,  x from pole(0) to +0.770 m             │
+  │ carrier      │ flat rear platform; 0.783(x) × 0.380(y) × 0.481(z) m        │
+  │              │ bottom at z=0.175 m,  x from pole(0) to -0.783 m             │
+  │ pole         │ vertical centre frame; 0.075(x) × 0.224(y) × 0.645(z) m     │
+  │              │ sits on carrier top (z=0.656 m), x=0 (axle midpoint)         │
+  │ stereo_cam   │ Orbbec Gemini 336L placeholder; 0.030(x)×0.170(y)×0.035(z)  │
+  │              │ joint at (0.029, 0, 1.314) m, pitched 30° nose-down          │
+  └──────────────┴───────────────────────────────────────────────────────────────┘
+
+  Sensor attachment points:
+    • stereo_cam  — stereo/depth camera frame; +x is look direction (30° below
+                    horizontal). Add <gazebo reference="stereo_cam"> sensor block.
+
+  Physics identical to production:
+    • DiffDrive, JointStatePublisher, PosePublisher Gazebo plugins unchanged
+    • Total mass ≈ 350 kg (4 × 7.07 kg wheels + 188 bonnet + 126 carrier +
+                           7.2 pole + 0.5 camera)
+    • All joint origins / axes unchanged
+-->
+<robot name="fr_robot_sim_r1">
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       base_footprint — ground-plane reference frame, no geometry.
+       Origin = ground level directly below the axle midpoint.
+       ══════════════════════════════════════════════════════════════════ -->
+  <link name="base_footprint"/>
+
+  <link name="fl_whl">
+    <inertial>
+      <origin
+        xyz="-2.95136137751228E-12 -0.0649890184058302 -1.38333788868295E-13"
+        rpy="0 0 0"/>
+      <mass value="7.06811205934986"/>
+      <inertia
+        ixx="0.153378078859329"
+        ixy="3.48878255349016E-13"
+        ixz="-7.25942340337194E-07"
+        iyy="0.277789945529784"
+        iyz="1.67204191517711E-13"
+        izz="0.153379477023329"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/fl_whl.STL"/>
+      </geometry>
+      <material name="tyre_black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/fl_whl.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="fl_whl_j" type="continuous">
+    <origin xyz="0.32511 0.32852 0.24872" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="fl_whl"/>
+    <axis xyz="0 1 0">
+      <dynamics damping="0.1" friction="0.0"/>
+    </axis>
+  </joint>
+
+  <link name="fr_whl">
+    <inertial>
+      <origin
+        xyz="3.94406729498087E-13 0.0649890184057719 -5.67074165402914E-13"
+        rpy="0 0 0"/>
+      <mass value="7.06811205937898"/>
+      <inertia
+        ixx="0.153377774110482"
+        ixy="3.27658973589324E-14"
+        ixz="-8.95930429308197E-08"
+        iyy="0.277789945530908"
+        iyz="-3.70758291602672E-14"
+        izz="0.153379781773593"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/fr_whl.STL"/>
+      </geometry>
+      <material name="tyre_black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/fr_whl.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="fr_whl_j" type="continuous">
+    <origin xyz="0.32511 -0.32873 0.24872" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="fr_whl"/>
+    <axis xyz="0 1 0">
+      <dynamics damping="0.1" friction="0.0"/>
+    </axis>
+  </joint>
+
+  <link name="bl_whl">
+    <inertial>
+      <origin
+        xyz="-1.87311277599633E-12 -0.0649890184058974 5.85587134338539E-13"
+        rpy="0 0 0"/>
+      <mass value="7.06811205932077"/>
+      <inertia
+        ixx="0.153379577326545"
+        ixy="3.16018084950189E-13"
+        ixz="6.13748296895596E-07"
+        iyy="0.27778994552866"
+        iyz="9.01914517128869E-15"
+        izz="0.153377978554733"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/bl_whl.STL"/>
+      </geometry>
+      <material name="tyre_black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/bl_whl.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="bl_whl_j" type="continuous">
+    <origin xyz="-0.32489 0.32852 0.24872" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="bl_whl"/>
+    <axis xyz="0 1 0">
+      <dynamics damping="0.1" friction="0.0"/>
+    </axis>
+  </joint>
+
+  <link name="br_whl">
+    <inertial>
+      <origin
+        xyz="-1.96509475358653E-14 0.0649890184058985 -3.36480843188269E-13"
+        rpy="0 0 0"/>
+      <mass value="7.06811205932075"/>
+      <inertia
+        ixx="0.15337943089883"
+        ixy="3.29634047384018E-14"
+        ixz="7.67692927860888E-07"
+        iyy="0.277789945528659"
+        iyz="-2.50307281304881E-14"
+        izz="0.153378124982513"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/br_whl.STL"/>
+      </geometry>
+      <material name="tyre_black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diffbot_description/meshes/visual/br_whl.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="br_whl_j" type="continuous">
+    <origin xyz="-0.32489 -0.32873 0.24872" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="br_whl"/>
+    <axis xyz="0 1 0">
+      <dynamics damping="0.1" friction="0.0"/>
+    </axis>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       bonnet — tall front hood
+
+       Box   : 0.770 m (x) × 0.380 m (y) × 0.731 m (z)
+       Extent: x  [0, +0.770]  (pole at x=0 → front face at x=+0.770)
+               z  [+0.175, +0.906]  (ground clearance 175 mm)
+       Width 0.380 m = wheel separation (657 mm) − full tire width (157 mm),
+       chosen so the box clears the inner half of each tyre.
+       Mass 188 kg (volume-proportional share of 321.7 kg chassis pool).
+       ══════════════════════════════════════════════════════════════════ -->
+  <link name="bonnet">
+    <inertial>
+      <!-- COM at geometric centre of the box in this link's frame -->
+      <origin xyz="0.3850 0 0.5405" rpy="0 0 0"/>
+      <mass value="188.1"/>
+      <inertia
+        ixx="12.303" ixy="0" ixz="0"
+        iyy="17.672" iyz="0"
+        izz="13.221"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.3850 0 0.5405" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.770 0.380 0.731"/>
+      </geometry>
+      <material name="chassis_grey">
+        <color rgba="0.70 0.70 0.70 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.3850 0 0.5405" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.770 0.380 0.731"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="bonnet_j" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="bonnet"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       carrier — flat open rear platform
+
+       Box   : 0.783 m (x) × 0.380 m (y) × 0.481 m (z)
+       Extent: x  [-0.783, 0]  (pole at x=0 → rear face at x=-0.783)
+               z  [+0.175, +0.656]  (ground clearance 175 mm)
+       Mass 125.9 kg (volume-proportional).
+       ══════════════════════════════════════════════════════════════════ -->
+  <link name="carrier">
+    <inertial>
+      <origin xyz="-0.3915 0 0.4155" rpy="0 0 0"/>
+      <mass value="125.9"/>
+      <inertia
+        ixx="5.054" ixy="0" ixz="0"
+        iyy="8.858" iyz="0"
+        izz="9.058"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.3915 0 0.4155" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.783 0.380 0.481"/>
+      </geometry>
+      <material name="chassis_grey">
+        <color rgba="0.70 0.70 0.70 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.3915 0 0.4155" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.783 0.380 0.481"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="carrier_j" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="carrier"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       pole — vertical centre frame carrying the stereo camera
+
+       Box       : 0.075 m (x) × 0.224 m (y) × 0.645 m (z)
+       Joint at  : (x=0, y=0, z=0.656) — carrier top surface
+       Pole top  : z = 0.656 + 0.645 = 1.301 m from ground
+       Mass 7.2 kg (volume-proportional).
+       ══════════════════════════════════════════════════════════════════ -->
+  <link name="pole">
+    <inertial>
+      <!-- COM at pole midpoint in pole link frame -->
+      <origin xyz="0 0 0.3225" rpy="0 0 0"/>
+      <mass value="7.2"/>
+      <inertia
+        ixx="0.2811" ixy="0" ixz="0"
+        iyy="0.2543" iyz="0"
+        izz="0.0337"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.3225" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.075 0.224 0.645"/>
+      </geometry>
+      <material name="pole_dark">
+        <color rgba="0.25 0.25 0.25 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.3225" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.075 0.224 0.645"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joint origin at carrier top surface (z = 0.175 + 0.481 = 0.656 m) -->
+  <joint name="pole_j" type="fixed">
+    <origin xyz="0 0 0.656" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="pole"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       stereo_cam — Orbbec Gemini 336L placeholder box
+
+       Box          : 0.030 m (x/depth) × 0.170 m (y/width) × 0.035 m (z/height)
+       Joint origin : (x=0.029, y=0, z=1.314) m in base_footprint frame
+                      x: front wheel axle (0.325 m) minus 296 mm → 0.029 m
+                      z: front wheel axle height (0.249 m) + 1 065 mm → 1.314 m
+                      (12.7 mm above pole top — camera bracket clears the pole)
+       Pitch        : +0.5236 rad (= +30°) → +x look-axis tilts 30° nose-down
+                      Ry(+30°) · e_x = (cos30°, 0, −sin30°) = forward-down ✓
+
+       Hires sensor note:
+         • The camera link +x axis is the primary look direction.
+         • Add your depth/color sensor via:
+               <gazebo reference="stereo_cam">
+                 <sensor name="depth" type="depth_camera"> … </sensor>
+               </gazebo>
+         • If your Orbbec driver needs a separate optical frame, add a child
+           link with the standard 90° optical-frame rotation off this link.
+       ══════════════════════════════════════════════════════════════════ -->
+  <link name="stereo_cam">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia
+        ixx="0.001255" ixy="0" ixz="0"
+        iyy="0.000089" iyz="0"
+        izz="0.001242"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- 30 mm depth × 170 mm wide × 35 mm tall in camera link frame -->
+        <box size="0.030 0.170 0.035"/>
+      </geometry>
+      <material name="sensor_dark">
+        <color rgba="0.10 0.10 0.10 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.170 0.035"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="stereo_cam_j" type="fixed">
+    <!-- xyz: 29 mm behind front axle line, centred laterally, 1 314 mm above ground -->
+    <!-- rpy: pitch = +π/6 (+30°) → camera looks forward 30° below horizontal     -->
+    <origin xyz="0.029 0 1.314" rpy="0 0.5236 0"/>
+    <parent link="base_footprint"/>
+    <child link="stereo_cam"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       Gazebo plugins
+       ══════════════════════════════════════════════════════════════════ -->
+  <gazebo>
+    <plugin name="ignition::gazebo::systems::DiffDrive"
+            filename="libignition-gazebo6-diff-drive-system.so">
+      <update_rate>50</update_rate>
+      <left_joint>fl_whl_j</left_joint>
+      <left_joint>bl_whl_j</left_joint>
+      <right_joint>fr_whl_j</right_joint>
+      <right_joint>br_whl_j</right_joint>
+      <wheel_separation>0.65725</wheel_separation>
+      <wheel_radius>0.065</wheel_radius>
+      <max_wheel_torque>15</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+      <odom_publisher_frequency>30</odom_publisher_frequency>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="libignition-gazebo6-joint-state-publisher-system"
+            name="ignition::gazebo::systems::JointStatePublisher"/>
+    <plugin filename="libignition-gazebo6-pose-publisher-system"
+            name="ignition::gazebo::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_sensor_pose>true</publish_sensor_pose>
+      <publish_model_pose>false</publish_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+    </plugin>
+  </gazebo>
+
+</robot>
