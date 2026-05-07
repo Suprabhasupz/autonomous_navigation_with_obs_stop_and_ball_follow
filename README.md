@@ -17,6 +17,7 @@ The system includes:
 Repository:
 
 [https://github.com/Suprabhasupz/autonomous_navigation_with_obs_stop_and_ball_follow](https://github.com/Suprabhasupz/autonomous_navigation_with_obs_stop_and_ball_follow)
+git clone https://github.com/Suprabhasupz/autonomous_navigation_with_obs_stop_and_ball_follow
 
 ---
 
