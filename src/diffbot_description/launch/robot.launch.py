@@ -69,7 +69,7 @@ def generate_launch_description():
     )
 
     # -------------------------
-    # ROBOT STATE PUBLISHER (URDF ONLY)
+    # ROBOT STATE PUBLISHER 
     # -------------------------
     robot_state_publisher = Node(
         package="robot_state_publisher",
