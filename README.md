@@ -356,40 +356,73 @@ This launches:
 
 ---
 
-## Random Waypoints
-
-```bash
-ros2 run diffbot_navigation random_waypoints
-```
 
 This publishes randomly generated waypoints for autonomous navigation testing.
 
 ---
 
 # Stage 4 Running Instructions
+Terminal 1 — Gazebo
+cd ~/diffbot_ws
 
-## Launch Ball Follow System
+source install/setup.bash
 
-```bash
-ros2 launch diffbot_navigation ball_follow.launch.py
-```
+ros2 launch diffbot_description gazebo.launch.py
 
-This launches:
+Wait until:
 
-* path_follower
-* obstacle_stop
-* ball_tracker
+✅ robot appears
+✅ red ball appears
 
----
+Terminal 2 — Navigation stack
+cd ~/diffbot_ws
 
-## Run Ball Teleop
+source install/setup.bash
 
-IMPORTANT:
+ros2 launch diffbot_navigation navigation.launch.py
 
-Run separately in a terminal because keyboard teleop requires interactive terminal input.
+This starts:
 
-```bash
+✅ path_follower
+✅ obstacle_stop
+
+Terminal 3 — Ball tracker
+cd ~/diffbot_ws
+
+source install/setup.bash
+
+ros2 run diffbot_navigation ball_tracker
+
+This node:
+
+✅ detects red ball
+✅ computes 3D position
+✅ publishes /path
+
+Terminal 4 — Ball teleop
+cd ~/diffbot_ws
+
+source install/setup.bash
+
 ros2 run diffbot_navigation ball_teleop
+
+Controls:
+
+W → move forward
+S → move backward
+A → move left
+D → move right
+Q → quit
+Expected behavior
+Move ball
+   ↓
+Robot sees red ball
+   ↓
+Robot follows ball
+   ↓
+Obstacle appears
+   ↓
+Robot stops
 ```
 
 Controls:
@@ -402,49 +435,7 @@ D → move right
 Q → quit
 ```
 
----
 
-# Useful Debug Commands
-
-## List ROS Topics
-
-```bash
-ros2 topic list
-```
-
----
-
-## View Path Topic
-
-```bash
-ros2 topic echo /path
-```
-
----
-
-## View Obstacle Detection
-
-```bash
-ros2 topic echo /obstacle_detected
-```
-
----
-
-## View Robot Velocity
-
-```bash
-ros2 topic echo /cmd_vel
-```
-
----
-
-## Check Running Nodes
-
-```bash
-ros2 node list
-```
-
----
 
 # Expected Final Behavior
 
